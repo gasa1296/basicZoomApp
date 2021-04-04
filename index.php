@@ -18,24 +18,50 @@ $loginUrl = "https://zoom.us/oauth/authorize?response_type=code&client_id=".CLIE
     
     <form action="create_meeting.php" method="post">
         
-        <input type="text" name="topic">
-        <input type="datetime-local" name="start_time">
-        <input type="password" name="password">
-        <select name="type">
+        <label for="topic">titulo</label>
+        <input type="text" name="topic" id="topic">
+        <br>
+
+        <label for="start_time">fecha y hora de inicio</label>
+        <input type="datetime-local" name="start_time" id="start_time">
+        <br>
+
+        <label for="password">contrasena</label>
+        <input type="password" name="password" id="password">
+        <br>
+
+        <label for="type">tipo de reunion</label>
+        <select name="type" id="type">
             <option value="1">reunion instantanea</option>
             <option value="2">reunion programada</option>
             <option value="3">reunion recurrente sin tiempos prefijados</option>
             <option value="8">reunion recurrente con tiempos prefijados</option>
         </select>
-        <input type="number" name="duration">
+        <br>
+
+        <label for="duration">duracion</label>
+        <sub>llenar esto solo si se escogio reunion programada</sub>
+        <input type="number" name="duration" id="duration">
+        <br>
+
         <div>
-            <select name="recurrence_type">
+
+            <label for="recurrence_type">tipo de recurrencia</label>
+            <sub>llenar esto solo si se escogio reunion recurrente con tiempos prefijados</sub>
+            <select name="recurrence_type" id="recurrence_type">
                 <option value="1">diaria</option>
                 <option value="2">semanal</option>
                 <option value="3">mensual</option>
             </select>
-            <input type="number" name="repeat_interval">
-            <select name="weekly_days">
+            <br>
+
+            <label for="repeat_interval">intervalo de recurrencia</label>
+            <input type="number" name="repeat_interval" id="repeat_interval">
+            <br>
+            
+            <label for="weekly_days">dias de la semana</label>
+            <sub>llenar esto solo si se escogio reunion recurrente con tiempos prefijados y la recurrencia es semanal</sub>
+            <select name="weekly_days" id="weekly_days">
                 <option value="1">domingo</option>
                 <option value="2">lunes</option>
                 <option value="3">martes</option>
@@ -44,7 +70,13 @@ $loginUrl = "https://zoom.us/oauth/authorize?response_type=code&client_id=".CLIE
                 <option value="6">viernes</option>
                 <option value="7">sabado</option>
             </select>
-            <input type="number" name="end_times">
+            <br>
+
+            <label for="end_times">numero de repeticiones</label>
+            <sub>llenar esto solo si se escogio reunion recurrente con tiempos prefijados y la recurrencia es semanal</sub>
+            <input type="number" name="end_times" id="end_times">
+            <br>
+
         </div>
         <input type="submit" name="submit">
     
