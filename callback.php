@@ -18,7 +18,7 @@ try {
     $token = json_decode($response->getBody()->getContents(),  true);
 
     $_SESSION['token'] = $token;
-    echo "Access token inserted successfully.";
+    header('Location: index.php');
   
 } 
 catch(Exception $e) {
