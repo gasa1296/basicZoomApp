@@ -2,32 +2,27 @@
 require_once __DIR__ . '/config.php';
 session_start();
 
-
-function add_members() {
+function get_meetings(){
     $client = new GuzzleHttp\Client(['base_uri' => 'https://api.zoom.us']);
 
     $arr_token = $_SESSION['token'];
     $accessToken = $arr_token['access_token'];
   
     try {
-        //agregar mienbros a grupo, parametros de GET groupId
-        //parametros POST: members array
-        $response = $client->request('POST', "/v2/groups/$_GET[group]/members",  [
+        //obtener informacion de un meeting, para metro en la url: meetingId
+        $response = $client->request('GET', "/v2/meetings/$_GET[meet]",  [
             "headers" => [
                 "Authorization" => "Bearer " . getZoomAccessToken()
-            ], 
-            'json' => [
-                'members' => $_POST['members']
             ]
         ]);
         
         $data = json_decode($response->getBody(), true);
-        print_r($data);
+        header("Location: $data[start_url]"); #esta url es para los host
+        //header("Location: $data[join_url]"); #esta es url es para los invitados
         
     } catch(Exception $e) {
         echo $e->getMessage();
     }
 }
   
-add_members();
-
+get_meetings();

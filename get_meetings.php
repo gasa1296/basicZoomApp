@@ -9,9 +9,10 @@ function get_meetings(){
     $accessToken = $arr_token['access_token'];
   
     try {
+        //obtener todos las reuniones de tu cuenta
         $response = $client->request('GET', '/v2/users/me/meetings',  [
             "headers" => [
-                "Authorization" => "Bearer $accessToken"
+                "Authorization" => "Bearer " . getZoomAccessToken()
             ]
         ]);
         
@@ -19,29 +20,12 @@ function get_meetings(){
         foreach( $data['meetings'] as $meeting){
             print_r($meeting);
             echo " <a href='delete_meeting.php?meet=$meeting[id]'> borrar reunion</a>";
+            echo " <a href='get_meeting.php?meet=$meeting[id]'> ir a reunion</a>";
             echo '<br>';
         }
         
     } catch(Exception $e) {
-        if( 401 == $e->getCode() ) {
-            $refresh_token = $_SESSION['refresh_token'];
-            $client = new GuzzleHttp\Client(['base_uri' => 'https://zoom.us']);
-            $response = $client->request('POST',  '/oauth/token',  [
-                "headers" => [
-                    "Authorization" => "Basic ". base64_encode(CLIENT_ID.':'.CLIENT_SECRET)
-                ],
-                'form_params' => [
-                    "grant_type" => "refresh_token",
-                    "refresh_token" => $refresh_token
-                ], 
-            ]);
-            $token = $response->getBody();
-            echo $token;
-            $_SESSION['token'] = json_decode($token, true);
-            create_meeting();
-        } else {
-            echo $e->getMessage();
-        }
+        echo $e->getMessage();
     }
 }
   
