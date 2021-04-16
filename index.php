@@ -1,7 +1,5 @@
 <?php
 require __DIR__ . '/config.php';
-session_start();
-$loginUrl = "https://zoom.us/oauth/authorize?response_type=code&client_id=".CLIENT_ID."&redirect_uri=".REDIRECT_URI;
 
 ?>
 <!DOCTYPE html>
@@ -12,7 +10,6 @@ $loginUrl = "https://zoom.us/oauth/authorize?response_type=code&client_id=".CLIE
     <title>test zoom api</title>
 </head>
 <body>
-    <?php print_r($_SESSION); ?>
     <br>
     <h4>iniciar sesion</h4>
     <a href="<?php echo $loginUrl; ?>">Login with Zoom</a>
